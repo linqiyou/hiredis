@@ -65,6 +65,6 @@ int replace_rename(const char *src, const char *dest);
 
 int truncate(const char *path, PORT_LONGLONG length);
 
-#define lseek lseek64
+#define lseek _hr_lseek64
 
 #endif

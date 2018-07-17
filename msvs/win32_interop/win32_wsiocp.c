@@ -114,7 +114,7 @@ int WSIOCP_QueueAccept(int listenfd) {
         return -1;
     }
 
-    acceptfd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+    acceptfd = _hr_socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (acceptfd == -1) {
         errno = WSAEINVAL;
         return -1;
@@ -167,7 +167,7 @@ int WSIOCP_Listen(int rfd, int backlog) {
 
     sockstate->masks |= LISTEN_SOCK;
 
-    if (listen(rfd, backlog) != 0) {
+    if (_hr_listen(rfd, backlog) != 0) {
         return SOCKET_ERROR;
     }
 
@@ -306,7 +306,7 @@ int WSIOCP_SocketSend(int fd, char *buf, int len, void *eventLoop,
     if (sockstate == NULL ||
         (sockstate->masks & SOCKET_ATTACHED) == 0 ||
         proc == NULL) {
-        result = (int) write(fd, buf, len);
+        result = (int)_hr_write(fd, buf, len);
         if (result == SOCKET_ERROR) {
             errno = FDAPI_WSAGetLastError();
         }
@@ -369,7 +369,7 @@ int WSIOCP_SocketConnect(int fd, const SOCKADDR_STORAGE *socketAddrStorage) {
             addr.sin_family = socketAddrStorage->ss_family;
             addr.sin_addr.S_un.S_addr = INADDR_ANY;
             addr.sin_port = 0;
-            result = bind(fd, (SOCKADDR*) &addr, sizeof(addr));
+            result = _hr_bind(fd, (SOCKADDR*) &addr, sizeof(addr));
 
             result = FDAPI_ConnectEx(fd,
                                      (SOCKADDR*) socketAddrStorage,
@@ -387,7 +387,7 @@ int WSIOCP_SocketConnect(int fd, const SOCKADDR_STORAGE *socketAddrStorage) {
             addr.sin6_family = socketAddrStorage->ss_family;
             memset(&(addr.sin6_addr.u.Byte), 0, 16);
             addr.sin6_port = 0;
-            result = bind(fd, (SOCKADDR*) &addr, sizeof(addr));
+            result = _hr_bind(fd, (SOCKADDR*) &addr, sizeof(addr));
 
             result = FDAPI_ConnectEx(fd,
                                      (SOCKADDR*) socketAddrStorage,
@@ -446,7 +446,7 @@ int WSIOCP_SocketConnectBind(int fd, const SOCKADDR_STORAGE *socketAddrStorage, 
             addr.sin_family = socketAddrStorage->ss_family;
             addr.sin_addr.S_un.S_addr = INADDR_ANY;
             addr.sin_port = 0;
-            result = bind(fd, (SOCKADDR*) &addr, sizeof(addr));
+            result = _hr_bind(fd, (SOCKADDR*) &addr, sizeof(addr));
             break;
         }
         case AF_INET6:
@@ -457,7 +457,7 @@ int WSIOCP_SocketConnectBind(int fd, const SOCKADDR_STORAGE *socketAddrStorage, 
             addr.sin6_family = socketAddrStorage->ss_family;
             memset(&(addr.sin6_addr.u.Byte), 0, 16);
             addr.sin6_port = 0;
-            result = bind(fd, (SOCKADDR*) &addr, sizeof(addr));
+            result = _hr_bind(fd, (SOCKADDR*) &addr, sizeof(addr));
             break;
         }
         default:

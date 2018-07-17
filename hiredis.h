@@ -35,6 +35,10 @@
 #include <stdarg.h> /* for va_list */
 #ifndef _WIN32
 #include <sys/time.h> /* for struct timeval */
+typedef long long PORT_LONGLONG;
+typedef long long PORT_LONG;
+typedef unsigned long long PORT_ULONG;
+#define WIN_PORT_FIX
 #else
 #include "msvs/win32_interop/win32_types_hiredis.h"
 #endif

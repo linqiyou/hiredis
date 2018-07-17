@@ -152,35 +152,35 @@ extern "C"
 #endif
 
 // API replacements
-extern fdapi_accept         accept;
-extern fdapi_access         access;
-extern fdapi_bind           bind;
-extern fdapi_connect        connect;
-extern fdapi_fcntl          fcntl;
-extern fdapi_freeaddrinfo   freeaddrinfo;
-extern fdapi_fsync          fsync;
-extern fdapi_ftruncate      ftruncate;
-extern fdapi_getaddrinfo    getaddrinfo;
-extern fdapi_getsockopt     getsockopt;
-extern fdapi_getpeername    getpeername;
-extern fdapi_getsockname    getsockname;
-extern fdapi_htonl          htonl;
-extern fdapi_htons          htons;
-extern fdapi_isatty         isatty;
-extern fdapi_inet_ntop      inet_ntop;
-extern fdapi_inet_pton      inet_pton;
-extern fdapi_listen         listen;
-extern fdapi_lseek64        lseek64;
-extern fdapi_ntohl          ntohl;
-extern fdapi_ntohs          ntohs;
-extern fdapi_open           open;
-extern fdapi_pipe           pipe;
-extern fdapi_poll           poll;
-extern fdapi_read           read;
-extern fdapi_select         select;
-extern fdapi_setsockopt     setsockopt;
-extern fdapi_socket         socket;
-extern fdapi_write          write;
+extern fdapi_accept         _hr_accept;
+extern fdapi_access         _hr_access;
+extern fdapi_bind           _hr_bind;
+extern fdapi_connect        _hr_connect;
+extern fdapi_fcntl          _hr_fcntl;
+extern fdapi_freeaddrinfo   _hr_freeaddrinfo;
+extern fdapi_fsync          _hr_fsync;
+extern fdapi_ftruncate      _hr_ftruncate;
+extern fdapi_getaddrinfo    _hr_getaddrinfo;
+extern fdapi_getsockopt     _hr_getsockopt;
+extern fdapi_getpeername    _hr_getpeername;
+extern fdapi_getsockname    _hr_getsockname;
+extern fdapi_htonl          _hr_htonl;
+extern fdapi_htons          _hr_htons;
+extern fdapi_isatty         _hr_isatty;
+extern fdapi_inet_ntop      _hr_inet_ntop;
+extern fdapi_inet_pton      _hr_inet_pton;
+extern fdapi_listen         _hr_listen;
+extern fdapi_lseek64        _hr_lseek64;
+extern fdapi_ntohl          _hr_ntohl;
+extern fdapi_ntohs          _hr_ntohs;
+extern fdapi_open           _hr_open;
+extern fdapi_pipe           _hr_pipe;
+extern fdapi_poll           _hr_poll;
+extern fdapi_read           _hr_read;
+extern fdapi_select         _hr_select;
+extern fdapi_setsockopt     _hr_setsockopt;
+extern fdapi_socket         _hr_socket;
+extern fdapi_write          _hr_write;
 
 // Other FD based APIs
 void    FDAPI_SaveSocketAddrStorage(int rfd, SOCKADDR_STORAGE* socketAddrStorage);

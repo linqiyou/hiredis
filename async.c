@@ -35,7 +35,11 @@
 #include "fmacros.h"
 #include <stdlib.h>
 #include <string.h>
+#ifdef _WIN32
 POSIX_ONLY(#include <strings.h>)
+#else
+#include <strings.h>
+#endif
 #include <assert.h>
 #include <ctype.h>
 #include <errno.h>

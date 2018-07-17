@@ -27,7 +27,8 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-
+typedef long long PORT_LONGLONG;
+typedef unsigned long long PORT_ULONGLONG;
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

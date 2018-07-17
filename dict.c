@@ -34,6 +34,10 @@
  */
 #ifdef _WIN32
 #include "msvs/win32_Interop/win32_types_hiredis.h"
+#else 
+#define LONG_MAX      2147483647L   // maximum (signed) long value
+#define ULONG_MAX     0xffffffffUL  // maximum unsigned long value
+#define PORT_LONG_MAX LONG_MAX
 #endif
 
 #include "fmacros.h"
