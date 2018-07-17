@@ -40,35 +40,35 @@ using namespace std;
 
 extern "C" {
 // Unix compatible FD based routines
-fdapi_accept accept = NULL;
-fdapi_access access = NULL;
-fdapi_bind bind = NULL;
-fdapi_connect connect = NULL;
-fdapi_fcntl fcntl = NULL;
-fdapi_fsync fsync = NULL;
-fdapi_ftruncate ftruncate = NULL;
-fdapi_freeaddrinfo freeaddrinfo = NULL;
-fdapi_getaddrinfo getaddrinfo = NULL;
-fdapi_getpeername getpeername = NULL;
-fdapi_getsockname getsockname = NULL;
-fdapi_getsockopt getsockopt = NULL;
-fdapi_htonl htonl = NULL;
-fdapi_htons htons = NULL;
-fdapi_isatty isatty = NULL;
-fdapi_inet_ntop inet_ntop = NULL;
-fdapi_inet_pton inet_pton = NULL;
-fdapi_listen listen = NULL;
+fdapi_accept _hr_accept = NULL;
+fdapi_access _hr_access = NULL;
+fdapi_bind _hr_bind = NULL;
+fdapi_connect _hr_connect = NULL;
+fdapi_fcntl _hr_fcntl = NULL;
+fdapi_fsync _hr_fsync = NULL;
+fdapi_ftruncate _hr_ftruncate = NULL;
+fdapi_freeaddrinfo _hr_freeaddrinfo = NULL;
+fdapi_getaddrinfo _hr_getaddrinfo = NULL;
+fdapi_getpeername _hr_getpeername = NULL;
+fdapi_getsockname _hr_getsockname = NULL;
+fdapi_getsockopt _hr_getsockopt = NULL;
+fdapi_htonl _hr_htonl = NULL;
+fdapi_htons _hr_htons = NULL;
+fdapi_isatty _hr_isatty = NULL;
+fdapi_inet_ntop _hr_inet_ntop = NULL;
+fdapi_inet_pton _hr_inet_pton = NULL;
+fdapi_listen _hr_listen = NULL;
 fdapi_lseek64 _hr_lseek64 = NULL;
-fdapi_ntohl ntohl = NULL;
-fdapi_ntohs ntohs = NULL;
-fdapi_open open = NULL;
-fdapi_pipe pipe = NULL;
-fdapi_poll poll = NULL;
-fdapi_read read = NULL;
-fdapi_select select = NULL;
-fdapi_setsockopt setsockopt = NULL;
-fdapi_socket socket = NULL;
-fdapi_write write = NULL;
+fdapi_ntohl _hr_ntohl = NULL;
+fdapi_ntohs _hr_ntohs = NULL;
+fdapi_open _hr_open = NULL;
+fdapi_pipe _hr_pipe = NULL;
+fdapi_poll _hr_poll = NULL;
+fdapi_read _hr_read = NULL;
+fdapi_select _hr_select = NULL;
+fdapi_setsockopt _hr_setsockopt = NULL;
+fdapi_socket _hr_socket = NULL;
+fdapi_write _hr_write = NULL;
 }
 
 auto f_WSACleanup = dllfunctor_stdcall<int>("ws2_32.dll", "WSACleanup");
@@ -662,12 +662,12 @@ int FDAPI_poll(struct pollfd *fds, nfds_t nfds, int timeout) {
             }
 
             if (timeout < 0) {
-                ret = select(0, &readSet, &writeSet, &excepSet, NULL);
+                ret = _hr_select(0, &readSet, &writeSet, &excepSet, NULL);
             } else {
                 struct timeval tv;
                 tv.tv_sec = timeout / 1000;
                 tv.tv_usec = 1000 * (timeout % 1000);
-                ret = select(0, &readSet, &writeSet, &excepSet, &tv);
+                ret = _hr_select(0, &readSet, &writeSet, &excepSet, &tv);
             }
 
             if (ret < 0) {
@@ -1114,14 +1114,14 @@ BOOL ParseStorageAddress(const char *ip, int port, SOCKADDR_STORAGE* pStorageAdd
     // Setting AI_PASSIVE will give you a wildcard address if addr is NULL
     hints.ai_flags = AI_NUMERICSERV | AI_PASSIVE;
 
-    if ((status = getaddrinfo(ip, port_buffer, &hints, &res)) != 0) {
+    if ((status = _hr_getaddrinfo(ip, port_buffer, &hints, &res)) != 0) {
         return FALSE;
     }
 
     // Note, we're taking the first valid address, there may be more than one
     memcpy(pStorageAddr, res->ai_addr, res->ai_addrlen);
 
-    freeaddrinfo(res);
+	_hr_freeaddrinfo(res);
     return TRUE;
 }
 
